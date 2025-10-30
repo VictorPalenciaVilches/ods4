@@ -1,0 +1,89 @@
+/* Tema 2 - Lengua Castellana: Gramática básica */
+
+/* 1. Variables CSS (Custom Properties) */
+:root {
+    --bg: #f7fbff;
+    --card: #fff;
+    --primary: #0f172a; /* Color de texto principal */
+    --accent: #065f46; /* Verde oscuro para acentos (Gramática) */
+    --muted: #6b7280; /* Gris para párrafos */
+    --radius: 10px;
+    --maxw: 920px;
+    --font: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 2. Reset y Estilos Base */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    background: linear-gradient(180deg, var(--bg), #eef6ff);
+    color: var(--primary);
+}
+
+/* 3. Estructura y Contenedores */
+.content-wrapper {
+    min-height: 100vh;
+    padding: 28px 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.content-container {
+    max-width: var(--maxw);
+    padding: 26px;
+    background: var(--card);
+    border-radius: var(--radius);
+    /* Sombra basada en el color accent: #065f46 */
+    box-shadow: 0 10px 30px rgba(4, 95, 70, 0.04); 
+    border: 1px solid #ecf7f0; /* Borde sutil */
+}
+
+/* 4. Tipografía y Encabezados */
+h1 {
+    color: var(--accent);
+}
+
+/* 5. Estilos de Sección (Contenido) */
+.objetivo, .contenidos, .ejemplo {
+    background: #f6fff9;
+    padding: 14px;
+    border-left: 6px solid var(--accent);
+    margin-bottom: 14px;
+}
+
+/* 6. Botones y Acciones */
+.tema-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* Botones Específicos */
+.volver-btn {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.cambiar-materia-btn {
+    background: #6c63ff; /* Morado para cambiar de materia */
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+/* 7. Responsive */
+@media (max-width: 640px) {
+    .content-container {
+        padding: 18px;
+    }
+    
+    .volver-btn, .cambiar-materia-btn {
+        width: 100%;
+    }
+}

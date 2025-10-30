@@ -1,0 +1,5 @@
+/* Tema 1 - Estilos para Ciencias Sociales */
+:root{--bg-page:#fffaf6;--card:#ffffff;--primary:#b45309;--accent:#0b5cff;--text:#2b2b2b;--muted:#6b6b6b;--radius:12px;--max-width:920px;--font-family:'Segoe UI', Roboto, Arial}
+body{font-family:var(--font-family);background:linear-gradient(180deg,var(--bg-page),#fff3e6);color:var(--text)}
+.content-container{padding:28px;border-radius:12px;box-shadow:0 10px 30px rgba(180,83,9,0.06)}
+h1{color:var(--primary)}

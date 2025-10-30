@@ -1,0 +1,41 @@
+/* Tema 5 - Estilos completos y autónomos (Problemas y Aplicaciones) */
+:root{
+	--bg-page:#f9fbf6;
+	--card:#ffffff;
+	--primary:#0f172a; /* Azul oscuro para problemas */
+	--accent:#4338ca;
+	--text:#0b1220;
+	--muted:#6b7280;
+	--radius:12px;
+	--max-width:920px;
+	--font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:var(--font-family);background:linear-gradient(180deg,var(--bg-page),#f0f4ff);color:var(--text);-webkit-font-smoothing:antialiased}
+
+.content-wrapper{min-height:100vh;padding:30px 16px;display:flex;justify-content:center}
+.content-container{width:100%;max-width:var(--max-width);padding:30px;background:var(--card);border-radius:var(--radius);box-shadow:0 10px 30px rgba(15,17,42,0.04);border:1px solid #eef3ff}
+
+h1{font-size:2rem;margin:0 0 10px;font-weight:700;color:var(--primary)}
+h2{font-size:1.15rem;margin:18px 0 10px;font-weight:600;color:var(--text);border-bottom:2px solid rgba(67,56,202,0.06);padding-bottom:6px}
+p{line-height:1.7;color:var(--muted)}
+
+.objetivo,.contenidos,.ejemplo{background:#f8fbff;padding:16px;border-radius:10px;margin-bottom:16px;border-left:6px solid var(--accent)}
+.contenidos ul{padding-left:20px;margin:8px 0 0}
+.contenidos ul li{padding-left:8px}
+.contenidos ul li::before{content:"\2022";color:var(--accent);display:inline-block;width:10px}
+
+.tema-actions{margin-top:24px;padding-top:12px;border-top:1px solid #eef6ff;display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.volver-btn,.cambiar-materia-btn,.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600;cursor:pointer;transition:all .2s ease}
+.volver-btn{background:var(--primary);color:#fff}
+.volver-btn:hover{transform:translateY(-3px);box-shadow:0 8px 26px rgba(15,17,42,0.08)}
+.cambiar-materia-btn{background:var(--accent);color:#fff}
+.back-btn{background:transparent;color:var(--primary);border:1px solid rgba(67,56,202,0.12);padding:9px 12px}
+
+@media(max-width:640px){.content-container{padding:18px}.tema-actions{justify-content:flex-start}.volver-btn,.cambiar-materia-btn{width:100%}}
+
+/* Utilidades */
+.small{font-size:0.9rem;color:var(--muted)}
+.card{background:#fff;padding:12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.03)}
