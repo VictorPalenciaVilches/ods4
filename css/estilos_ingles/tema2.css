@@ -1,5 +1,0 @@
-/* Tema 2 - Estilos base para Inglés */
-:root{--primary:#d97706;--bg-page:#fff9f0;--font-family:'Segoe UI', Roboto, Arial}
-body{font-family:var(--font-family);background:linear-gradient(180deg,var(--bg-page),#fff7ed)}
-.content-container{padding:22px;border-radius:10px}
-h1{color:var(--primary)}

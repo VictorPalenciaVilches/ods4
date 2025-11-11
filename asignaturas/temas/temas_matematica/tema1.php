@@ -1,6 +1,7 @@
 <?php
 // Ubicación: /asignaturas/temas/temas_matematica/tema1.php
-session_start();
+require_once __DIR__ . '/../../../includes/session.php';
+start_secure_session();
 
 if (!isset($_SESSION['correo'])) {
     header("Location: ../../login.php");
@@ -11,16 +12,16 @@ if (!isset($_SESSION['correo'])) {
 $topic_id = 'tema1'; 
 // Las preguntas deben estar definidas aquí para generar el formulario en el HTML
 $questions = [
-    1 => ['q' => 'Según la información, ¿qué es la parte numérica de un término algebraico, incluyendo su signo?', 'options' => ['Exponente','Variable','Parte Literal','Coeficiente'], 'answer' => 3],
-    2 => ['q' => 'En el término y<sup>2</sup>z, ¿cuál es el coeficiente que se asume aunque no esté escrito?', 'options' => ['0','z','2','1'], 'answer' => 3],
-    3 => ['q' => '¿Cuál es la regla de oro para poder sumar o restar dos o más términos?', 'options' => ['Que tengan el mismo signo.','Que tengan la misma parte literal (semejantes).','Que el coeficiente sea el mismo.','Que sean expresiones binómicas.'], 'answer' => 1],
-    4 => ['q' => 'El grado del término 6a<sup>2</sup>b<sup>3</sup> es la suma de sus exponentes. ¿Cuál es ese grado?', 'options' => ['2','3','5','6'], 'answer' => 2],
-    5 => ['q' => '¿Qué elemento fundamental del término indica si es positivo o negativo?', 'options' => ['El Coeficiente','La Parte Literal','El Signo','El Exponente'], 'answer' => 2],
-    6 => ['q' => '¿Cuál de los siguientes pares **NO** son considerados términos semejantes?', 'options' => ['3x<sup>2</sup>y y -5x<sup>2</sup>y','a<sup>3</sup> y 12a<sup>3</sup>','4x y 4x<sup>2</sup>','7ab y 8ab'], 'answer' => 2],
-    7 => ['q' => '¿Cuál es la diferencia principal entre una Expresión Algebraica y una Ecuación?', 'options' => ['El número de términos.','El signo de igualdad (=).','El uso de la multiplicación.','La presencia de variables.'], 'answer' => 1],
-    8 => ['q' => 'Según el ejemplo de Solución de Ecuaciones, si 4x = 20, ¿cuál es el valor de x?', 'options' => ['4','5','16','80'], 'answer' => 1],
-    9 => ['q' => 'Si un término tiene su exponente sin escribir, ¿qué número se asume que es?', 'options' => ['2','0','1','-1'], 'answer' => 2],
-    10 => ['q' => 'La acción de sumar o restar términos semejantes se conoce como:', 'options' => ['Simplificación de Expresiones','Factorización','Reducción de Términos Semejantes','Igualación de Coeficientes'], 'answer' => 2],
+    1 => ['q' => '¿Qué es el álgebra?', 'options' => ['La rama de las matemáticas que estudia solo números enteros','La rama que usa letras y símbolos para representar números desconocidos','La rama que estudia solo operaciones de suma y resta','La rama que trabaja únicamente con fracciones'], 'answer' => 1],
+    2 => ['q' => 'En el término 5x², ¿cuál es el coeficiente?', 'options' => ['x','5','2','x²'], 'answer' => 1],
+    3 => ['q' => '¿Qué representa una variable en álgebra?', 'options' => ['Un número fijo que nunca cambia','Una letra que representa un número desconocido o que puede variar','Una operación matemática','Un signo de puntuación'], 'answer' => 1],
+    4 => ['q' => '¿Cuáles de los siguientes términos son semejantes?', 'options' => ['3x y 5y','2x² y 3x','4x y 7x','x³ y y³'], 'answer' => 2],
+    5 => ['q' => 'Al simplificar la expresión 3x + 5x - 2x, ¿cuál es el resultado?', 'options' => ['6x','10x','0','6x²'], 'answer' => 0],
+    6 => ['q' => '¿Qué es una expresión algebraica?', 'options' => ['Una igualdad con signo =','Una combinación de términos sin signo de igualdad','Una operación de multiplicación','Un número entero'], 'answer' => 1],
+    7 => ['q' => 'En la ecuación 2x + 3 = 11, ¿cuál es el valor de x?', 'options' => ['4','7','5','14'], 'answer' => 0],
+    8 => ['q' => '¿Cuál es el grado del término 7x³y²?', 'options' => ['3','2','5','7'], 'answer' => 2],
+    9 => ['q' => '¿Qué operación se realiza para despejar una variable que está siendo multiplicada?', 'options' => ['Sumar','Restar','Multiplicar','Dividir'], 'answer' => 3],
+    10 => ['q' => 'Si tenemos la expresión 4a + 3b - 2a + 5b, al simplificar términos semejantes obtenemos:', 'options' => ['2a + 8b','6a + 8b','2a + 2b','7a + 8b'], 'answer' => 0],
 ];
 
 // Sanitizar el nombre del usuario para evitar ataques XSS
@@ -32,154 +33,247 @@ $nombre_usuario = $_SESSION['nombre'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tema 1 - Introducción al Álgebra</title>
-    <?php $cssPath = __DIR__ . '/../../../css/estilos_matematica/tema1.css'; ?>
-    <link rel="stylesheet" href="../../../css/estilos_matematica/tema1.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>">
+    <?php $cssPath = __DIR__ . '/../../../assets/css/estilos_matematica/tema1.css'; ?>
+    <link rel="stylesheet" href="../../../assets/css/estilos_matematica/tema1.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>">
     
 </head>
 <body>
     <div class="content-wrapper">
         <div class="content-container">
             <a href="../../matematicas.php" class="back-btn">← Volver a Matemáticas</a>
-            <h1>Tema 1: El Lenguaje del Álgebra </h1>
-            <p>¡Hola, <strong><?php echo htmlspecialchars($nombre_usuario); ?></strong>! El Álgebra es como un idioma que nos permite resolver problemas usando letras como si fueran números. ¡Empecemos!</p>
+            <h1>Tema 1: Introducción al Álgebra</h1>
+            <p>¡Hola, <strong><?php echo htmlspecialchars($nombre_usuario); ?></strong>! Bienvenido al fascinante mundo del álgebra, donde las letras y los números trabajan juntos para resolver problemas.</p>
 
             <hr>
 
-            <h2>1. Fundamentos: De la Aritmética al Álgebra</h2>
-            <p>El Álgebra es la rama de las matemáticas que generaliza las operaciones de la Aritmética. Nos permite crear fórmulas y reglas que funcionan sin importar el valor de los números, usando símbolos (letras) para representar cantidades desconocidas o variables.</p>
-            <p><strong>Objetivo del tema:</strong> Comprender la estructura de los términos, simplificar expresiones y resolver ecuaciones de primer grado.</p>
-
-            <hr>
-
-            <h2>2. Estructura de un Término Algebraico</h2>
-            <p>Un término algebraico es la unidad más básica de una expresión algebraica. Consiste en la combinación de números y letras que se relacionan mediante la multiplicación, o que están separados de otros términos por signos de suma (+) o resta (-).</p>
+            <!-- 1. CONTENIDO DEL TEMA -->
+            <h2>1. ¿Qué es el Álgebra?</h2>
+            <p>El <strong>álgebra</strong> es una rama de las matemáticas que utiliza letras (llamadas <strong>variables</strong>) y símbolos para representar números desconocidos o que pueden variar. Mientras que en aritmética trabajamos con números concretos (como 5 + 3 = 8), en álgebra trabajamos con expresiones generales (como x + 3 = 8, donde x puede ser cualquier número).</p>
             
-            <h3>Partes Fundamentales de un Término</h3>
-            <ol>
-                <li>
-                    <strong>Signo (+ o -)</strong>
-                    <p>Indica si el término es positivo o negativo. Si no hay un signo escrito al inicio de la expresión, se asume que el término es positivo (+).</p>
-                    <p><em>Ejemplo:</em> En 5x<sup>2</sup>, el signo es positivo. En -3y, el signo es negativo.</p>
-                </li>
-                <li>
-                    <strong>Coeficiente</strong>
-                    <p>Es la parte numérica del término, incluyendo su signo. Es el factor que multiplica a la parte literal. Si la parte numérica es 1, este generalmente no se escribe (se omite), pero se entiende que está ahí.</p>
-                    <p><em>Ejemplo:</em> En 7ab, el coeficiente es 7. En -z<sup>4</sup>, el coeficiente es -1.</p>
-                </li>
-                <li>
-                    <strong>Parte Literal (o Variables)</strong>
-                    <p>Es la parte formada por letras (variables) y sus exponentes. Las letras representan valores desconocidos o variables.</p>
-                    <p><em>Ejemplo:</em> En 4x<sup>3</sup>y, la parte literal es x<sup>3</sup>y. En -m, la parte literal es m.</p>
-                </li>
-                <li>
-                    <strong>Exponente (o Grado)</strong>
-                    <p>Es el número pequeño y elevado (superíndice) que indica cuántas veces la base (la variable) se multiplica por sí misma. Cuando una variable no tiene un exponente escrito, se asume que es 1.</p>
-                    <p><strong>El grado del término</strong> es la suma de los exponentes de todas sus variables.</p>
-                    <p><em>Ejemplo:</em> En 2x<sup>5</sup>, el exponente es 5. En 6a<sup>2</sup>b<sup>3</sup>, el grado del término es 2 + 3 = 5.</p>
-                </li>
-            </ol>
-            
-            <h3>Ejemplos Esquemáticos</h3>
-            <table class="tabla-estructura">
-                <thead>
-                    <tr>
-                        <th>Término</th>
-                        <th>Signo</th>
-                        <th>Coeficiente</th>
-                        <th>Parte Literal</th>
-                        <th>Exponente(s)</th>
-                        <th>Grado del Término</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>-10x<sup>4</sup></td>
-                        <td>-</td>
-                        <td>10</td>
-                        <td>x<sup>4</sup></td>
-                        <td>4</td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>y<sup>2</sup>z</td>
-                        <td>+</td>
-                        <td>1</td>
-                        <td>y<sup>2</sup>z</td>
-                        <td>2 y 1 (para z)</td>
-                        <td>2 + 1 = 3</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>+</td>
-                        <td>8</td>
-                        <td>(No tiene)</td>
-                        <td>(No tiene)</td>
-                        <td>0 (Término independiente)</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Concepto Clave: Términos Semejantes</h3>
-            <p>Dos o más términos son semejantes si tienen **exactamente la misma parte literal** (es decir, las mismas variables elevadas a los mismos exponentes).</p>
-            <p><strong>Importancia:</strong> Solo los términos semejantes se pueden sumar o restar (operación conocida como **reducción de términos semejantes**).</p>
+            <p><strong>¿Por qué es importante el álgebra?</strong></p>
             <ul>
-                <li><strong>Semejantes:</strong> 3x<sup>2</sup>y y -5x<sup>2</sup>y (Ambos tienen x<sup>2</sup>y)</li>
-                <li><strong>NO Semejantes:</strong> 4x y 4x<sup>2</sup> (El exponente de x es diferente: 1 vs. 2)</li>
+                <li>Nos permite crear <strong>fórmulas generales</strong> que funcionan para cualquier número</li>
+                <li>Facilita la resolución de <strong>problemas complejos</strong> de manera sistemática</li>
+                <li>Es fundamental en ciencias, ingeniería, economía y muchas otras áreas</li>
+                <li>Desarrolla el <strong>pensamiento abstracto</strong> y la capacidad de razonamiento</li>
             </ul>
 
             <hr>
 
-            <h2>3. Reducción y Simplificación</h2>
+            <h2>2. Conceptos Fundamentales</h2>
 
-            <p>Esta es una regla de oro: **solo los términos semejantes se pueden sumar o restar.**</p>
+            <h3>2.1. Variables</h3>
+            <p>Una <strong>variable</strong> es una letra (generalmente x, y, z, a, b, c) que representa un número desconocido o que puede tomar diferentes valores. Las variables más comunes son las letras del final del alfabeto (x, y, z), pero podemos usar cualquier letra.</p>
+            <p><em>Ejemplos:</em></p>
+            <ul>
+                <li><strong>x</strong> puede representar la edad de una persona</li>
+                <li><strong>y</strong> puede representar el precio de un producto</li>
+                <li><strong>a</strong> puede representar la longitud de un lado</li>
+            </ul>
 
-            <h3>Ejemplo de Reducción:</h3>
-            <p>Simplificar: 5x + 3x - x</p>
-            <p>Como todos tienen la parte literal 'x', se operan los coeficientes (5 + 3 - 1):</p>
-            <p>Resultado: **7x**.</p>
+            <h3>2.2. Términos Algebraicos</h3>
+            <p>Un <strong>término algebraico</strong> es la unidad básica de una expresión algebraica. Está formado por la combinación de números y letras mediante la multiplicación.</p>
+            
+            <p><strong>Partes de un término:</strong></p>
+            <ol>
+                <li>
+                    <strong>Coeficiente:</strong> Es el número que multiplica a la variable. Si no hay número visible, el coeficiente es 1.
+                    <p><em>Ejemplos:</em> En <strong>5x</strong>, el coeficiente es 5. En <strong>x</strong>, el coeficiente es 1.</p>
+                </li>
+                <li>
+                    <strong>Variable:</strong> Es la letra que representa el valor desconocido.
+                    <p><em>Ejemplos:</em> En <strong>3y</strong>, la variable es y. En <strong>-2a</strong>, la variable es a.</p>
+                </li>
+                <li>
+                    <strong>Exponente:</strong> Indica cuántas veces se multiplica la variable por sí misma. Si no hay exponente visible, es 1.
+                    <p><em>Ejemplos:</em> En <strong>x²</strong>, el exponente es 2 (x · x). En <strong>y³</strong>, el exponente es 3 (y · y · y).</p>
+                </li>
+            </ol>
+            
+            <table class="tabla-estructura">
+                <thead>
+                    <tr>
+                        <th>Término</th>
+                        <th>Coeficiente</th>
+                        <th>Variable</th>
+                        <th>Exponente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7x</td>
+                        <td>7</td>
+                        <td>x</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>-3y²</td>
+                        <td>-3</td>
+                        <td>y</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>a³</td>
+                        <td>1</td>
+                        <td>a</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5xy</td>
+                        <td>5</td>
+                        <td>x, y</td>
+                        <td>1, 1</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>2.3. Términos Semejantes</h3>
+            <p>Dos o más términos son <strong>semejantes</strong> cuando tienen exactamente la misma variable con el mismo exponente.</p>
+            <p><strong>Regla importante:</strong> Solo los términos semejantes se pueden sumar o restar.</p>
+            
+            <p><em>Ejemplos:</em></p>
+            <ul>
+                <li><strong>Semejantes:</strong> 3x y 5x (ambos tienen x con exponente 1)</li>
+                <li><strong>Semejantes:</strong> 2y² y -7y² (ambos tienen y²)</li>
+                <li><strong>NO semejantes:</strong> 3x y 3y (variables diferentes)</li>
+                <li><strong>NO semejantes:</strong> 4x y 4x² (exponentes diferentes)</li>
+            </ul>
 
             <hr>
 
-            <h2>4. Expresiones vs. Ecuaciones</h2>
+            <h2>3. Expresiones Algebraicas</h2>
+            <p>Una <strong>expresión algebraica</strong> es una combinación de términos unidos por signos de suma (+) o resta (-). No tiene signo de igualdad (=), por lo que no se resuelve, solo se simplifica o evalúa.</p>
 
-            <h3>A. Expresión Algebraica</h3>
-            <p>Una combinación de términos unidos por signos. Se evalúa o simplifica, pero no se resuelve porque NO tiene el signo de igualdad (=).</p>
-            <p>Ejemplos: *Monomio* (5x), *Binomio* (x + y), *Trinomio* (a<sup>2</sup> - 3a + 4).</p>
+            <h3>3.1. Clasificación de Expresiones</h3>
+            <ul>
+                <li><strong>Monomio:</strong> Una expresión con un solo término. <em>Ejemplo:</em> 5x, -3y²</li>
+                <li><strong>Binomio:</strong> Una expresión con dos términos. <em>Ejemplo:</em> 3x + 5, x - 2y</li>
+                <li><strong>Trinomio:</strong> Una expresión con tres términos. <em>Ejemplo:</em> x² + 3x + 2</li>
+                <li><strong>Polinomio:</strong> Una expresión con más de tres términos. <em>Ejemplo:</em> 2x³ - x² + 4x - 1</li>
+            </ul>
 
-            <h3>B. Ecuación Lineal (Primer Grado)</h3>
-            <p>Una **igualdad** que solo es cierta para un valor específico de la variable. Se **resuelve** despejando la variable.</p>
-
-            <h3>Ejemplo de Solución de Ecuaciones:</h3>
-            <p>Resolver: 4x - 7 = 13</p>
+            <h3>3.2. Simplificación de Expresiones</h3>
+            <p>Para <strong>simplificar</strong> una expresión algebraica, debemos combinar (sumar o restar) los términos semejantes.</p>
+            
+            <p><strong>Pasos para simplificar:</strong></p>
             <ol>
-                <li>Mover la constante (-7) con la operación inversa (suma): 4x = 13 + 7 &rarr; 4x = 20.</li>
-                <li>Despejar la variable (4 multiplica, así que dividimos): x = 20 / 4 &rarr; x = 5.</li>
+                <li>Identificar los términos semejantes</li>
+                <li>Sumar o restar los coeficientes de los términos semejantes</li>
+                <li>Mantener la misma variable con su exponente</li>
+            </ol>
+
+            <p><em>Ejemplos de simplificación:</em></p>
+            <ul>
+                <li><strong>3x + 5x = 8x</strong> (sumamos los coeficientes: 3 + 5 = 8)</li>
+                <li><strong>7y - 2y = 5y</strong> (restamos los coeficientes: 7 - 2 = 5)</li>
+                <li><strong>4a + 3b - 2a + 5b = 2a + 8b</strong> (agrupamos términos semejantes: 4a - 2a = 2a y 3b + 5b = 8b)</li>
+                <li><strong>2x² + 3x - x² + 5x = x² + 8x</strong> (agrupamos: 2x² - x² = x² y 3x + 5x = 8x)</li>
+            </ul>
+
+            <hr>
+
+            <h2>4. Ecuaciones de Primer Grado</h2>
+            <p>Una <strong>ecuación</strong> es una igualdad matemática que contiene una variable. A diferencia de una expresión, una ecuación tiene un signo de igualdad (=) y se puede resolver para encontrar el valor de la variable.</p>
+
+            <h3>4.1. Partes de una Ecuación</h3>
+            <p>En una ecuación como <strong>2x + 3 = 11</strong>:</p>
+            <ul>
+                <li><strong>Miembro izquierdo:</strong> 2x + 3 (todo lo que está a la izquierda del =)</li>
+                <li><strong>Miembro derecho:</strong> 11 (todo lo que está a la derecha del =)</li>
+                <li><strong>Variable:</strong> x (la incógnita que debemos encontrar)</li>
+            </ul>
+
+            <h3>4.2. Resolver una Ecuación</h3>
+            <p>Para <strong>resolver</strong> una ecuación, debemos encontrar el valor de la variable que hace que la igualdad sea verdadera. Esto se hace mediante operaciones inversas.</p>
+
+            <p><strong>Reglas fundamentales:</strong></p>
+            <ul>
+                <li>Lo que se suma en un miembro, se resta en el otro</li>
+                <li>Lo que se resta en un miembro, se suma en el otro</li>
+                <li>Lo que multiplica en un miembro, divide en el otro</li>
+                <li>Lo que divide en un miembro, multiplica en el otro</li>
+            </ul>
+
+            <p><em>Ejemplo 1:</em> Resolver 2x + 3 = 11</p>
+            <ol>
+                <li>Restamos 3 en ambos lados: 2x + 3 - 3 = 11 - 3</li>
+                <li>Simplificamos: 2x = 8</li>
+                <li>Dividimos entre 2 en ambos lados: 2x ÷ 2 = 8 ÷ 2</li>
+                <li>Solución: <strong>x = 4</strong></li>
+            </ol>
+
+            <p><em>Verificación:</em> Reemplazamos x = 4 en la ecuación original: 2(4) + 3 = 8 + 3 = 11 ✓</p>
+
+            <p><em>Ejemplo 2:</em> Resolver 5x - 7 = 18</p>
+            <ol>
+                <li>Sumamos 7 en ambos lados: 5x - 7 + 7 = 18 + 7</li>
+                <li>Simplificamos: 5x = 25</li>
+                <li>Dividimos entre 5: x = 25 ÷ 5</li>
+                <li>Solución: <strong>x = 5</strong></li>
+            </ol>
+
+            <p><em>Ejemplo 3:</em> Resolver 3(x + 2) = 15</p>
+            <ol>
+                <li>Primero distribuimos el 3: 3x + 6 = 15</li>
+                <li>Restamos 6: 3x = 15 - 6 = 9</li>
+                <li>Dividimos entre 3: x = 9 ÷ 3</li>
+                <li>Solución: <strong>x = 3</strong></li>
             </ol>
 
             <hr>
 
-            <h2>5. Video Recomendado</h2>
-            <p>Mira este video para reforzar los conceptos básicos y la simplificación de términos. Si este video no funciona, puedes buscar en YouTube "Conceptos básicos de álgebra y expresiones".</p>
-            <div class="video-responsive">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/4LouAWcajJs" title="ÁLGEBRA desde CERO - Conceptos y Términos Básicos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+            <h2>5. Grado de un Término</h2>
+            <p>El <strong>grado de un término</strong> es la suma de los exponentes de todas sus variables.</p>
+            
+            <p><em>Ejemplos:</em></p>
+            <ul>
+                <li>El término <strong>7x²</strong> tiene grado 2 (exponente de x es 2)</li>
+                <li>El término <strong>5xy</strong> tiene grado 2 (x tiene exponente 1, y tiene exponente 1, 1 + 1 = 2)</li>
+                <li>El término <strong>3x²y³</strong> tiene grado 5 (2 + 3 = 5)</li>
+                <li>El término <strong>8</strong> tiene grado 0 (no tiene variables, es un término constante)</li>
+            </ul>
 
             <hr>
 
-            <h2>6. Autor del Tema</h2>
+            <h2>6. Aplicaciones Prácticas</h2>
+            <p>El álgebra nos ayuda a resolver problemas de la vida cotidiana. Veamos algunos ejemplos:</p>
+
+            <p><strong>Problema 1:</strong> Si un libro cuesta $15 y compramos 3 libros, ¿cuánto pagamos en total?</p>
+            <p><em>Solución algebraica:</em> Si x representa el precio de un libro, entonces 3x = 3(15) = $45</p>
+
+            <p><strong>Problema 2:</strong> Juan tiene el doble de edad que Pedro. Si entre los dos suman 30 años, ¿cuántos años tiene cada uno?</p>
+            <p><em>Solución:</em> Sea x = edad de Pedro. Entonces edad de Juan = 2x</p>
+            <p>Ecuación: x + 2x = 30 → 3x = 30 → x = 10</p>
+            <p>Pedro tiene 10 años y Juan tiene 20 años.</p>
+
+            <hr>
+
+            <!-- 2. AUTOR -->
+            <h2>7. Autor del Tema</h2>
             <div class="autor">
-                <p><strong>Dr. Ana Pérez</strong><br>
-                Especialista en didáctica de las matemáticas y desarrollo de currículos educativos para secundaria.</p>
+                <p><strong>Dr. Carlos Martínez Álvarez</strong><br>
+                Doctor en Matemáticas Aplicadas y especialista en didáctica de las matemáticas para educación secundaria. Profesor con más de 15 años de experiencia en la enseñanza del álgebra y autor de varios libros de texto educativos.</p>
             </div>
 
             <hr>
 
-            <h2 id="cuestionario-titulo">7. Cuestionario de 10 Preguntas</h2>
+            <!-- 3. VIDEO DE YOUTUBE -->
+            <h2>8. Video Recomendado</h2>
+            <p>Este video te ayudará a reforzar los conceptos básicos del álgebra de manera visual y práctica. Observa cómo se identifican términos, se simplifican expresiones y se resuelven ecuaciones paso a paso.</p>
+            <div class="video-responsive">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/4LouAWcajJs?rel=0" title="ÁLGEBRA desde CERO - Conceptos y Términos Básicos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+            <p><em>Video: "ÁLGEBRA desde CERO - Conceptos y Términos Básicos" </em></p>
+
+            <hr>
+            
+            <!-- 4. CUESTIONARIO -->
+            <h2 id="cuestionario-titulo">9. Cuestionario de 10 Preguntas</h2>
             <p>¡Pon a prueba tu conocimiento! Responde basándote en la información que acabas de leer.</p>
 
             <form id="quiz-form" method="post" class="quiz-form">
                 <?php foreach ($questions as $id => $data): ?>
-                    <fieldset>
+                    <fieldset data-question-id="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>" data-correct-answer="<?php echo (int) $data['answer']; ?>">
                         <legend><?php echo $id . '. ' . $data['q']; ?></legend>
                         <?php foreach ($data['options'] as $idx => $opt): ?>
                             <label>
@@ -205,15 +299,15 @@ $nombre_usuario = $_SESSION['nombre'];
             </div>
         </div>
     </div>
-
-    <script>
-        // 1. Inyectamos las preguntas del quiz para que el JS las use en el feedback
-        window.quizQuestions = <?php echo json_encode($questions); ?>;
-        
-        // 2. Inyectamos la URL del procesador universal (Ruta relativa desde tema1.php)
-        window.processorUrl = '../quiz_backend/procesar_quiz.php'; 
-    </script>
-
-    <script src="../../../../js/quiz_handler.js"></script>
+    <?php
+        $quizScriptPath = __DIR__ . '/../../../assets/js/quiz_handler.js';
+        $questionMeta = [];
+        foreach ($questions as $id => $questionData) {
+            $questionMeta[$id] = [
+                'answer' => $questionData['answer']
+            ];
+        }
+    ?>
+<script src="../../../assets/js/quiz_handler.js?v=<?php echo file_exists($quizScriptPath) ? filemtime($quizScriptPath) : time(); ?>"></script>
 </body>
 </html>

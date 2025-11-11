@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/session.php';
+start_secure_session();
 
 if (!isset($_SESSION['correo'])) {
     header("Location: login.php");
@@ -22,14 +23,14 @@ $niveles = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido - ODS 4</title>
-    <?php $cssPath = __DIR__ . '/css/estilo_bienvenido.css'; ?>
-    <link rel="stylesheet" href="css/estilo_bienvenido.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>">
+    <?php $cssPath = __DIR__ . '/assets/css/estilo_bienvenido.css'; ?>
+    <link rel="stylesheet" href="assets/css/estilo_bienvenido.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>">
 </head>
 <body>
     <div class="header-bienvenida">
         
         <div class="ods4-header">
-            <img src="img/ods4logo.png" alt="Logo ODS 4 - Educación de Calidad" class="ods4-logo">
+            <img src="assets/img/ods4_logo.png" alt="Logo ODS 4 - Educación de Calidad" class="ods4-logo">
             
             <div class="header-text-group">
                 <h2>¡Bienvenido, <?php echo htmlspecialchars($nombre_usuario); ?>!</h2>
@@ -46,7 +47,7 @@ $niveles = [
         ?>
             <div class="nivel-card">
                 <h3><?php echo $nombre_mostrar; ?></h3>
-                <p>Contenido especializado en **<?php echo $nombre_mostrar; ?>** para el ODS 4.</p>
+                <p>Contenido especializado en <?php echo $nombre_mostrar; ?> para el ODS 4.</p>
                 
                 <a href="<?php echo $ruta_asignatura; ?>" class="ingresar-btn">Ingresar</a>
             </div>

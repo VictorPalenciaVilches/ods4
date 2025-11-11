@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/session.php';
+start_secure_session();
 
 // Bloqueo de Seguridad
 if (!isset($_SESSION['correo'])) {
@@ -15,7 +16,8 @@ $nombre_usuario = $_SESSION['nombre'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lengua Castellana - Contenido Educativo ODS 4</title>
-    <link rel="stylesheet" href="../css/estilo_lengua_castellana.css"> 
+    <?php $cssPath = __DIR__ . '/../assets/css/estilo_lengua_castellana.css'; ?>
+    <link rel="stylesheet" href="../assets/css/estilo_lengua_castellana.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>"> 
 </head>
 <body>
     <div class="content-wrapper">

@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/session.php';
+start_secure_session();
 
 // Bloqueo de Seguridad: Redirige si el usuario no ha iniciado sesión
 if (!isset($_SESSION['correo'])) {
@@ -15,8 +16,8 @@ $nombre_usuario = $_SESSION['nombre'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matemáticas - Temas</title>
-    <?php $cssPath = __DIR__ . '/../css/estilo_matematica.css'; ?>
-    <link rel="stylesheet" href="../css/estilo_matematica.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>"> 
+    <?php $cssPath = __DIR__ . '/../assets/css/estilo_matematica.css'; ?>
+    <link rel="stylesheet" href="../assets/css/estilo_matematica.css?v=<?php echo file_exists($cssPath) ? filemtime($cssPath) : time(); ?>"> 
 </head>
 <body>
     <div class="content-wrapper">
@@ -46,8 +47,8 @@ $nombre_usuario = $_SESSION['nombre'];
                         <p class="descripcion">Áreas, perímetros y propiedades de figuras planas.</p>
                     </li>
                     <li>
-                        <a href="temas/temas_matematica/tema5.php">Tema 5: Problemas y Aplicaciones</a>
-                        <p class="descripcion">Resolución de problemas aplicados que integran los conceptos anteriores.</p>
+                        <a href="temas/temas_matematica/tema5.php">Tema 5: Trigonometría</a>
+                        <p class="descripcion">Razones trigonométricas básicas y aplicaciones en triángulos.</p>
                     </li>
                 </ul>
             </div>

@@ -1,8 +1,0 @@
-/* Tema 1 - Estilos para Biología (Células) */
-:root{--bg-page:#f6fff8;--card:#ffffff;--primary:#059669;--accent:#0b5cff;--text:#07221a;--muted:#4b5563;--radius:12px;--max-width:920px;--font-family:'Segoe UI', Roboto, Arial}
-*{box-sizing:border-box}
-body{font-family:var(--font-family);background:linear-gradient(180deg,var(--bg-page),#ecfff3);color:var(--text)}
-.content-wrapper{min-height:100vh;padding:32px 16px;display:flex;justify-content:center}
-.content-container{width:100%;max-width:var(--max-width);padding:30px;background:var(--card);border-radius:var(--radius);box-shadow:0 12px 40px rgba(5,150,105,0.06);border:1px solid #e8f9ef}
-h1{font-size:2rem;margin:0 0 10px;font-weight:700;color:var(--primary)}
-@media(max-width:640px){.content-container{padding:18px}}
